@@ -226,7 +226,7 @@ class Display extends React.Component {
                     <div style={{ flex: 1, border: "2px solid black", display: "flex", justifyContent: 'center', alignItems: 'center', width:"100vw", marginBottom:"50px" }}>
                         <h1>Smogon Usage Stats</h1>
                     </div>
-                    <div style={{ flex: 4}}>
+                    <div style={{ display:"flex", flex: 9, flexDirection:"column"}}>
                         <PokeChart pokemonData={this.state.pokemonData} pokeName={this.state.pokeName} style={{ height: "150px", width: "100vw", border:"2px solid black" }}/>
                         {search_forms}
                     </div>
