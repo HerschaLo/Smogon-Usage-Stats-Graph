@@ -22,6 +22,7 @@ var CanvasJSChart = CanvasJSReact.CanvasJSChart;
         return open.apply(this, args);
     };
 })();
+
 class PokeChart extends React.Component {
     render() {
         const usageChart = {
@@ -77,7 +78,26 @@ class PokeChart extends React.Component {
             )
     }
 }
-class Display extends React.Component {
+class SiteDisplay extends React.Component {
+    constructor(props) {
+        super(props)
+        this.state = {
+            gen: 8,
+            year:"2021"
+        }
+    }
+    render() {
+        return (
+            <div style={{dispaly:"flex", flexDriection:"row"}}>
+            <div>
+                <p>Test</p>
+            </div>
+                <GenDisplay gen={this.state.gen} year={this.state.year} />
+            </div>
+                )
+    }
+}
+class GenDisplay extends React.Component {
     constructor(props) {
         super(props)
         let pokemonData = []
@@ -94,7 +114,7 @@ class Display extends React.Component {
         function fetchData() {
             counter += 1
             client
-                .fetchMovesets({ year: "2021", month: `0${counter}` }, { name: "gen8ou" })
+                .fetchMovesets({ year: this.props.year, month: `0${counter}` }, { name: `gen${this.props.gen}ou` })
                 .then((moveset) => {
                     pokemonData.push([counter, moveset])
                     if (counter < 5) {
@@ -239,7 +259,7 @@ class Display extends React.Component {
 // ========================================
 
 ReactDOM.render(
-    <Display />,
+    <SiteDisplay />,
     document.getElementById('root')
 );
 

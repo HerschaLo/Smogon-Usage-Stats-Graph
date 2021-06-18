@@ -24,6 +24,7 @@
   "dependencies": {
     "browserify": "^17.0.0",
     "cors-anywhere": "^0.4.4",
+    "http-proxy": "^1.18.1",
     "smogon-usage-fetch": "^5.0.1",
     "watchify": "^4.0.0"
   },
