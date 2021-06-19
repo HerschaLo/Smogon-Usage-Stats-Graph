@@ -14,6 +14,66 @@ body {
         transform: rotate(360deg)
     }
 }
+@keyframes sidebar_hide{
+    to{
+        width:0px;
+        transform:scaleX(0)
+    }
+}
+@keyframes sidebar_show {
+    to {
+        width: 15vw;
+        transform: scaleX(1)
+    }
+}
+@keyframes rotate {
+    to {
+        transform: rotate(-90deg)
+    }
+}
+@keyframes rotate2 {
+    to {
+        transform: rotate(90deg)
+    }
+}
+.gen * {
+    font-size: 17.3333px;
+    display:flex;
+    justify-content:center;
+    flex-direction:column;
+    width:15vw
+}
+.gen *:hover{
+    background-color:gray
+}
+.sidebar-hide {
+    animation-name: sidebar_hide;
+    width: 15vw;
+    animation-duration: 0.15s;
+    animation-timing-function: ease-in-out;
+    transform-origin: left;
+    animation-fill-mode: forwards
+}
+.sidebar-show {
+    animation-name: sidebar_show;
+    width:0px;
+    animation-duration: 0.15s;
+    animation-timing-function: ease-in-out;
+    transform-origin: left;
+    animation-fill-mode: forwards;
+}
+.right {
+    animation-name: rotate;
+    animation-duration: 0.4s ;
+    animation-fill-mode: forwards;
+    cursor: pointer
+}
+.left {
+    animation-name: rotate2;
+    animation-duration: 0.4s;
+    animation-fill-mode: forwards;
+    cursor: pointer
+}
 .loading {
     animation-name: load;
     animation-duration: 1s;

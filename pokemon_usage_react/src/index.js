@@ -5,6 +5,7 @@ import * as smogon from 'smogon-usage-fetch'
 import reportWebVitals from './reportWebVitals';
 import CanvasJSReact from './canvasjs.react';
 import Poke_Ball_icon from './assets/Poke_Ball_icon.png'
+import grey_triangle from './assets/grey_triangle.png'
 var CanvasJSChart = CanvasJSReact.CanvasJSChart;
 (function () {
     var cors_api_host = 'cors-anywhere.herokuapp.com';
@@ -29,7 +30,7 @@ class PokeChart extends React.Component {
             animationEnabled: true,
             theme: "light2",
             title: {
-                text: "Pokemon usage rate"
+                text: `Generation ${this.props.gen} Pokemon usage rate`
             },
             axisX: {
                 interval: 1,
@@ -83,16 +84,46 @@ class SiteDisplay extends React.Component {
         super(props)
         this.state = {
             gen: 8,
-            year:"2021"
+            year: "2021",
+            rotate: "right",
+            sidebar: "sidebar-hide"
         }
     }
     render() {
         return (
-            <div style={{dispaly:"flex", flexDriection:"row"}}>
-            <div>
-                <p>Test</p>
-            </div>
-                <GenDisplay gen={this.state.gen} year={this.state.year} />
+            <div style={{display:"flex", flexDriection:"row", width:"100%"}}>
+                <div style={{ display: "flex", flexDirection: "row", marginRight: "15px" }}>
+                    <div style={{ display: "flex", height: "100vh", alignItems: "center", flexDirection: "column", background: "#e0e0e4" }} className={this.state.sidebar}>
+                        <h1>Smogon Usage Stats</h1>
+                        <br />
+                        <h2>Generations</h2>
+                        <div className="gen">
+                         <div>
+                        <p  onClick={() => { this.setState({ gen: 8, year: "2021" }) }}>
+                                    Gen 8 (Sw/SH)
+                        </p>
+                            </div>
+                          <div>
+                        <p onClick={() => { this.setState({ gen: 7, year: "2019" }) }}>
+                                    Gen 7 (S/M)
+                        </p>
+                         </div>
+                         </div>
+                    </div>
+                    <div style={{ width: "0.65vw", boxShadow: "2px 2px 4px #000000", background: "#e0e0e4", borderBottomRightRadius: "9px", borderTopRightRadius: "9px", height: "8vh" }}>
+                        <img src={grey_triangle} style={{ height: "10px", width: "10px", margin: "1px" }} className={this.state.rotate} onClick={() => {
+                            if (this.state.rotate == "right") {
+                                this.setState({ rotate: "left", sidebar: "sidebar-show" })
+                            }
+                            else {
+                                this.setState({ rotate: "right", sidebar: "sidebar-hide" })
+                            }
+                        }} />
+                    </div>
+                </div>
+                <div style={{ display: "flex", justifyContent: "center", alignItems: "center", height: "100vh", flex:1, border:"1px solid black"}}>
+                    <GenDisplay gen={this.state.gen} year={this.state.year} key={ this.state.gen}/>
+                </div>
             </div>
                 )
     }
@@ -100,6 +131,7 @@ class SiteDisplay extends React.Component {
 class GenDisplay extends React.Component {
     constructor(props) {
         super(props)
+        console.log("initiated")
         let pokemonData = []
         let counter = 0
         const client = new smogon.SmogonApiClient()
@@ -243,11 +275,8 @@ class GenDisplay extends React.Component {
                 <img src={Poke_Ball_icon} className="loading" style={pokeLoad} />
 
                 <div style={loadCheck}>
-                    <div style={{ flex: 1, border: "2px solid black", display: "flex", justifyContent: 'center', alignItems: 'center', width:"100vw", marginBottom:"50px" }}>
-                        <h1>Smogon Usage Stats</h1>
-                    </div>
                     <div style={{ display:"flex", flex: 9, flexDirection:"column"}}>
-                        <PokeChart pokemonData={this.state.pokemonData} pokeName={this.state.pokeName} style={{ height: "150px", width: "100vw", border:"2px solid black" }}/>
+                        <PokeChart pokemonData={this.state.pokemonData} pokeName={this.state.pokeName} gen={this.props.gen } style={{ height: "150px", border:"2px solid black" }}/>
                         {search_forms}
                     </div>
                 </div>
