@@ -85,11 +85,24 @@ class SiteDisplay extends React.Component {
         this.state = {
             gen: 8,
             year: "2021",
-            rotate: "right",
-            sidebar: "sidebar-hide"
+            rotate: "left",
+            sidebar: "sidebar-show-load",
+            doneLoad: false,
         }
+        this.newGen = this.newGen.bind(this)
+        this.finishLoad = this.finishLoad.bind(this)
+    }
+    newGen(gen, year, event) {
+        this.setState({ gen: gen, year: year, doneLoad:false, sidebar:"sidebar-show-load" })
+    }
+    finishLoad() {
+        this.setState({doneLoad:true, sidebar:"side-show"})
     }
     render() {
+        let loadStatement = []
+        if (!this.state.doneLoad) {
+            loadStatement.push(<p style={{zIndex:2}} className="loading-message">Loading....</p>)
+        }
         return (
             <div style={{display:"flex", flexDriection:"row", width:"100%"}}>
                 <div style={{ display: "flex", flexDirection: "row", marginRight: "15px" }}>
@@ -99,30 +112,33 @@ class SiteDisplay extends React.Component {
                         <h2>Generations</h2>
                         <div className="gen">
                          <div>
-                        <p  onClick={() => { this.setState({ gen: 8, year: "2021" }) }}>
+                        <p  onClick={(e)=> this.newGen(8, "2021", e)}>
                                     Gen 8 (Sw/SH)
                         </p>
                             </div>
                           <div>
-                        <p onClick={() => { this.setState({ gen: 7, year: "2019" }) }}>
+                        <p onClick={(e)=>this.newGen(7, "2019", e)}>
                                     Gen 7 (S/M)
                         </p>
-                         </div>
-                         </div>
+                            </div>
+                        </div>
+                        {loadStatement}
                     </div>
                     <div style={{ width: "0.65vw", boxShadow: "2px 2px 4px #000000", background: "#e0e0e4", borderBottomRightRadius: "9px", borderTopRightRadius: "9px", height: "8vh" }}>
                         <img src={grey_triangle} style={{ height: "10px", width: "10px", margin: "1px" }} className={this.state.rotate} onClick={() => {
-                            if (this.state.rotate == "right") {
-                                this.setState({ rotate: "left", sidebar: "sidebar-show" })
-                            }
-                            else {
-                                this.setState({ rotate: "right", sidebar: "sidebar-hide" })
+                            if (this.state.doneLoad) {
+                                if (this.state.rotate == "right") {
+                                    this.setState({ rotate: "left", sidebar: "sidebar-show" })
+                                }
+                                else {
+                                    this.setState({ rotate: "right", sidebar: "sidebar-hide" })
+                                }
                             }
                         }} />
                     </div>
                 </div>
                 <div style={{ display: "flex", justifyContent: "center", alignItems: "center", height: "100vh", flex:1, border:"1px solid black"}}>
-                    <GenDisplay gen={this.state.gen} year={this.state.year} key={ this.state.gen}/>
+                    <GenDisplay gen={this.state.gen} year={this.state.year} key={this.state.gen} loadChange={this.finishLoad} load={this.state.doneLoad }/>
                 </div>
             </div>
                 )
@@ -140,7 +156,6 @@ class GenDisplay extends React.Component {
             pokemonData: pokemonData,
             pokeName: [''],
             dropdown_style: dropdown_style,
-            doneLoad: false,
             activeDisplay:-1,
         }
         function fetchData() {
@@ -153,8 +168,8 @@ class GenDisplay extends React.Component {
                         fetchData()
                     }
                     else {
-                        console.log(pokemonData)
-                        this.setState({doneLoad:true})
+                        console.log("hello")
+                        this.props.loadChange()
                     }
                 })
                 .catch(console.error)
@@ -197,7 +212,7 @@ class GenDisplay extends React.Component {
         }
         let loadCheck = {  height:"100vh", display:"flex", flexDirection:"column", alignItems:"center" }
         let pokeLoad = { height:"200px", width:"200px"}
-        if (!this.state.doneLoad) {
+        if (!this.props.load) {
             loadCheck = { display: 'none', width:"100vw" }
         }
         else {

@@ -43,8 +43,9 @@ body {
     flex-direction:column;
     width:15vw
 }
-.gen *:hover{
-    background-color:gray
+.gen *:hover {
+    background-color: gray;
+    cursor: pointer
 }
 .sidebar-hide {
     animation-name: sidebar_hide;
@@ -56,11 +57,23 @@ body {
 }
 .sidebar-show {
     animation-name: sidebar_show;
-    width:0px;
+    width: 0px;
     animation-duration: 0.15s;
     animation-timing-function: ease-in-out;
     transform-origin: left;
     animation-fill-mode: forwards;
+}
+.sidebar-show-load {
+    animation-name: sidebar_show;
+    width: 0px;
+    animation-duration: 0.15s;
+    animation-timing-function: ease-in-out;
+    transform-origin: left;
+    animation-fill-mode: forwards;
+    filter: opacity(30%)
+}
+.loading-message {
+    filter: opacity(300%)
 }
 .right {
     animation-name: rotate;
