@@ -30,23 +30,6 @@ class SiteDisplay extends React.Component {
             pokeName: [''],
             activeDisplay: -1,
         }
-        function fetchData() {
-            counter += 1
-            client
-                .fetchMovesets({ year: "2021", month: `0${counter}` }, { name: `gen${8}ou` })
-                .then((moveset) => {
-                    pokemonData.push([counter, moveset])
-                    if (counter < 5) {
-                        fetchData()
-                    }
-                    else {
-                        console.log("hello")
-                    }
-                })
-                .catch(console.error)
-        }
-        fetchData = fetchData.bind(this)
-        fetchData()
     }
     render() {
         return (
