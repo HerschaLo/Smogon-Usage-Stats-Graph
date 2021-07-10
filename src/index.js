@@ -1,6 +1,7 @@
 import ToolDisplay from "./index_usage.js"
 import UsageInDisplay from "./index_poke_data.js"
 import React from 'react';
+import * as smogon from 'smogon-usage-fetch'
 import ReactDOM from 'react-dom';
 (function () {
     var cors_api_host = 'cors-anywhere.herokuapp.com';
@@ -27,13 +28,12 @@ class SiteDisplay extends React.Component {
         this.state = {
             pokemonData: pokemonData,
             pokeName: [''],
-            dropdown_style: dropdown_style,
             activeDisplay: -1,
         }
         function fetchData() {
             counter += 1
             client
-                .fetchMovesets({ year: this.props.year, month: `0${counter}` }, { name: `gen${this.props.gen}ou` })
+                .fetchMovesets({ year: "2021", month: `0${counter}` }, { name: `gen${8}ou` })
                 .then((moveset) => {
                     pokemonData.push([counter, moveset])
                     if (counter < 5) {
