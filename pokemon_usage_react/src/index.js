@@ -21,9 +21,32 @@ import ReactDOM from 'react-dom';
 class SiteDisplay extends React.Component {
     constructor(props) {
         super(props)
+        let pokemonData = []
+        let counter = 0
+        const client = new smogon.SmogonApiClient()
         this.state = {
-            selectedTool: [<UsageInDisplay />,]
+            pokemonData: pokemonData,
+            pokeName: [''],
+            dropdown_style: dropdown_style,
+            activeDisplay: -1,
         }
+        function fetchData() {
+            counter += 1
+            client
+                .fetchMovesets({ year: this.props.year, month: `0${counter}` }, { name: `gen${this.props.gen}ou` })
+                .then((moveset) => {
+                    pokemonData.push([counter, moveset])
+                    if (counter < 5) {
+                        fetchData()
+                    }
+                    else {
+                        console.log("hello")
+                    }
+                })
+                .catch(console.error)
+        }
+        fetchData = fetchData.bind(this)
+        fetchData()
     }
     render() {
         return (
@@ -41,7 +64,6 @@ class SiteDisplay extends React.Component {
                         </div>
                     </div>
                 </div>
-                {this.state.selectedTool}
             </div>
             )
     }
