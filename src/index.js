@@ -1,6 +1,7 @@
 import React from 'react';
 import * as smogon from 'smogon-usage-fetch'
 import ReactDOM from 'react-dom';
+import ToolDisplay from './index_usage.js'
 (function () {
     var cors_api_host = 'cors-anywhere.herokuapp.com';
     var cors_api_url = 'https://' + cors_api_host + '/';
