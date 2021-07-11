@@ -1,0 +1,76 @@
+﻿<title>Smogon Usage Data Visualizer</title>
+<head>
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css" integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
+    <script type="text/javascript" src="dist/bundle.js"></script>
+    <style>
+        .pokemon:hover{
+            background-color:darkgrey
+        }
+        .chart {
+            height: 370px;
+            width: 40%;
+            border: 2px solid black;
+            margin-right: 15px;
+            position: relative;
+            bottom: 30px;
+            display:none
+        }
+        @keyframes load{
+            to{transform:rotate(360deg)}
+        }
+        .loading {
+            animation-name: load;
+            animation-duration: 1s;
+            animation-iteration-count: 60;
+            animation-timing-function:ease-in-out
+        }
+    </style>
+    <script>
+            function filter() {
+            console.log("hello")
+            var pokemons = document.getElementById("pokemon").children
+            for (var i = 0; i < pokemons.length; i++) {
+                let search = new RegExp(`${document.getElementById("pokemonName").value}`, 'i')
+                console.log(search)
+                let check = search.exec(pokemons[i].id)
+                console.log(check)
+                if (check != null) {
+                    pokemons[i].style.display = "block"
+                }
+                else {
+                    pokemons[i].style.display = "none"
+                }
+            }
+        }
+    </script>
+</head>
+<body>
+    <header style="display:flex; justify-content:center; margin-bottom:10px; font-size:60px">Smogon Usage Data Visualizer</header>
+    <div class="row" style="height:100%">
+        <div class="col-2" style="border:1px solid grey; height:100%">
+            <header style="font-size:40px; margin-bottom:30px">Select pokemon</header>
+            <header style="font-size:15px; margin-bottom:10px; font-weight:bold">Pokemon Name</header>
+            <input type="text" placeholder="Select a pokemon" id="pokemonName" style="" onkeyup="filter()">
+            <br>
+            <div id="pokemon" style="overflow-y:scroll; height:120px; margin-bottom:10px; border: 1px solid grey; width:180px">Loading...</div>
+            <button type="button" id="getData">Get Data</button>
+        </div>
+        <div style="display: flex; justify-content: center; align-items: center;border:1px solid grey" class="col-10" id="charts">
+            <div>
+                <img src="Images/Poke_Ball_icon.png" style="height:200px; width:200px" class="loading" id="pokeball" />
+            </div>
+            <div id="chartContainer" class="chart"></div>
+            <div style="height: 370px; border: 2px solid black; position: relative; bottom: 30px; border-right:0px solid grey; width:120px; margin-right:0px" class="chart">
+                <label for="month" style="font-weight: bold; margin-right: 10px">Select month</label>
+                <select name="month" id="month">
+                    <option value="00" id="00">January</option>
+                    <option value="01" id="01">February</option>
+                    <option value="02" id="02">March</option>
+                    <option value="03" id="03">April</option>
+                    <option value="04" id="04" selected="selected">May</option>
+                </select>
+            </div>
+                <div id="movesChart" class="chart"></div>
+        </div>
+    </div>
+</body>
