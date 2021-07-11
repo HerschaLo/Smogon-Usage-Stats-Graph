@@ -34,8 +34,22 @@ class SiteDisplay extends React.Component {
     render() {
         return (
             <div>
+                <div style={{ height: "10vh", display: "flex", flexDirection: "column" }}>
+                    <div style={{ height: "4vh", display: "flex", justifyContent: "center", fontSize: "30px" }}>
+                        Smogon Usage Tools
+                    </div>
+                    <div style={{ height: "6vh" }} class="toolbar">
+                        <div onClick={() => { this.setState({ selectedTool: [<ToolDisplay />,] }) }}>
+                            Compare Pokemon Usage Stats
+                        </div>
+                        <div onClick={() => { this.setState({ selectedTool: [<UsageInDisplay />,] }) }}>
+                            Usage Data for Individual Pokemon
+                        </div>
+                    </div>
+                </div>
+                {this.state.selectedTool}
             </div>
-            )
+        )
     }
 }
 ReactDOM.render(
