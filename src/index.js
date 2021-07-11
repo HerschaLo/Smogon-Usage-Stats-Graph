@@ -1,5 +1,3 @@
-import ToolDisplay from "./index_usage.js"
-import UsageInDisplay from "./index_poke_data.js"
 import React from 'react';
 import * as smogon from 'smogon-usage-fetch'
 import ReactDOM from 'react-dom';
