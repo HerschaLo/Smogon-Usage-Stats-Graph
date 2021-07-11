@@ -22,13 +22,8 @@ import ReactDOM from 'react-dom';
 class SiteDisplay extends React.Component {
     constructor(props) {
         super(props)
-        let pokemonData = []
-        let counter = 0
-        const client = new smogon.SmogonApiClient()
         this.state = {
-            pokemonData: pokemonData,
-            pokeName: [''],
-            activeDisplay: -1,
+            selectedTool: [<UsageInDisplay />,]
         }
     }
     render() {

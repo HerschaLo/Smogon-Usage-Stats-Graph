@@ -1,11 +1,9 @@
 {
   "ExpandedNodes": [
     "",
-    "\\pokemon_usage_react",
-    "\\pokemon_usage_react\\src",
-    "\\pokemon_usage_react\\src\\assets",
-    "\\pokemon_usage_vanilla"
+    "\\pokemon_usage_vanilla",
+    "\\src"
   ],
-  "SelectedNode": "\\pokemon_usage_react\\src\\index.js",
+  "SelectedNode": "\\src\\index.js",
   "PreviewInSolutionExplorer": false
 }
